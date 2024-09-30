@@ -84,3 +84,89 @@
     transition: 0.5s;
     text-decoration: underline;
 }
+
+
+
+.nav-box{
+    display: flex;
+}
+
+
+.tracker-contents {
+    width: 100%;
+    height: 100%;
+
+}
+
+.tracker-nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    height: auto;
+    width: 40%;
+    margin-top: 2%;
+   
+  }
+  
+  .goal-today {
+    margin-left: 2%;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 10px 10px 0 0;
+    border: none;
+    background-color: #6d488b;
+    color: white;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+    padding: 0.2rem 1rem;
+  }
+  
+  .goal-today:hover {
+    background-color: #5a3d73;
+    cursor: pointer;
+  }
+  
+  .reflection {
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 10px 10px 0 0;
+    border: none;
+    background-color: #6d488b;
+    color: white;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+    padding: 0.2rem 1rem;
+  }
+  
+  .reflection:hover {
+    background-color: #5a3d73;
+    cursor: pointer;
+  }
+  
+  .goal-today-box {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    border: 0.5px solid grey;
+    padding: 10px;
+  }
+  
+  .goal-today-checkbox {
+    width: 20px;
+    height: 20px;
+    border: 1px solid black;
+    border-radius: 10%;
+    margin-right: 10px;
+  }
+  
+  .goal-today-checkbox-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    font-size: 1rem;
+    font-weight: bold;
+  }
+  
+  
