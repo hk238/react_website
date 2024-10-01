@@ -3,6 +3,7 @@ import '../components/tracker.css';
 import TrackerNav from './trackerNav';
 import GoalToday from './goalToday';
 import Reflection from './reflection';
+import GoalAdder from './goalAdder';
 
 // 목표 타입 정의
 interface Goal {
@@ -25,8 +26,6 @@ const fetchGoals = async (): Promise<Goal[]> => {
     }, 1000); // 1초 지연을 주어 비동기 작업 시뮬레이션
   });
 };
-
-
 
 export default function TrackerBox() {
   const [activeComponent, setActiveComponent] = useState<'goalToday' | 'reflection' | null>(null);
@@ -51,8 +50,8 @@ export default function TrackerBox() {
   }, []);
 
   const handleCheckedChange = (id: number) => (newChecked: boolean) => {
-    setGoals(prevGoals => 
-      prevGoals.map(goal => 
+    setGoals(prevGoals =>
+      prevGoals.map(goal =>
         goal.id === id ? { ...goal, checked: newChecked } : goal
       )
     );
@@ -64,21 +63,28 @@ export default function TrackerBox() {
 
   return (
     <div>
-      <TrackerNav 
+      <TrackerNav
         onGoalTodayClick={() => setActiveComponent('goalToday')}
         onReflectionClick={() => setActiveComponent('reflection')}
       />
 
       <div className="tracker-contents">
-        {activeComponent === 'goalToday' && goals.map((goal) => (
-          <GoalToday 
-            key={goal.id}
-            goal={goal.text}
-            details={goal.details}
-            checked={goal.checked}
-            onCheckedChange={handleCheckedChange(goal.id)}
-          />
-        ))}
+        {activeComponent === 'goalToday' && (
+          <>
+            {goals.map((goal) => (
+              <GoalToday
+                key={goal.id}
+                goal={goal.text}
+                detail={goal.details}
+                checked={goal.checked}
+                onCheckedChange={handleCheckedChange(goal.id)}
+              />
+            ))}
+            <div className="goal-adder-container">
+              <GoalAdder />
+            </div>
+          </>
+        )}
 
         {activeComponent === 'reflection' && <Reflection />}
       </div>

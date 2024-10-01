@@ -158,6 +158,11 @@
     border-radius: 10%;
     margin-right: 10px;
   }
+
+  .goal-today-checkbox:hover {
+    background-color: rgb(204, 204, 204);
+    transition: 0.5s;
+  }
   
   .goal-today-checkbox-icon {
     display: flex;
@@ -168,5 +173,64 @@
     font-size: 1rem;
     font-weight: bold;
   }
-  
-  
+
+
+
+  .goal-adder-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+
+
+
+.goal-adder {
+    width: 100%;
+    height: 100%;
+  }
+
+.goal-adder:hover {
+    background-color: rgb(204, 204, 204);
+    transition: 0.5s;
+}
+
+
+.goal-adder-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  background-color: rgb(226, 226, 226);
+  color: white;
+  cursor: pointer;
+}
+
+.goal-adder-icon:hover {
+  background-color: rgb(204, 204, 204);
+  transition: 0.5s;
+}
+
+.goal-adder-modal {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.goal-adder-modal-cancel {
+    margin-left: 50%;
+    border: none;
+    background-color: rgb(226, 226, 226);
+    color: white;
+    cursor: pointer;
+
+}
+

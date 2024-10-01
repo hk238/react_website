@@ -2,12 +2,12 @@ import React from 'react';
 
 export default function GoalToday({ 
   goal, 
-  details, 
+  detail, 
   checked, 
   onCheckedChange 
 }: { 
   goal: string, 
-  details: string, 
+  detail: string, 
   checked: boolean,
   onCheckedChange: (checked: boolean) => void
 }) 
@@ -22,8 +22,8 @@ export default function GoalToday({
       >
         <div className='goal-today-checkbox-icon'>{checked ? '✓' : ''}</div>
       </button>
-      {goal}
-      {details}
+      <div style={{fontSize: '1.5rem', fontWeight: 'bold'}}>{goal}</div>
+      <div style={{paddingLeft: '3rem', fontSize: '0.8rem'}}>{detail.length > 30 ? detail.substring(0, 30) + '...' : detail || 'No details'}</div>
     </div>
   );
 }
