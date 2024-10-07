@@ -1,5 +1,3 @@
-
-
 .app-header {
     position: fixed;
     top: 0;
@@ -149,6 +147,7 @@
     justify-content: flex-start;
     border: 0.5px solid grey;
     padding: 10px;
+    position: relative;
   }
   
   .goal-today-checkbox {
@@ -191,10 +190,7 @@
     height: 100%;
   }
 
-.goal-adder:hover {
-    background-color: rgb(204, 204, 204);
-    transition: 0.5s;
-}
+
 
 
 .goal-adder-icon {
@@ -218,19 +214,122 @@
 
 .goal-adder-modal {
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
     width: 100%;
     height: 100%;
+    position: relative;
+    background-color: rgb(226, 226, 226);
+
 }
+
+.goal-adder-modal-title {
+  margin-left: 20px;
+  font-size: 20px;
+  font-weight: bold;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #575757;
+  width: 400px;
+}
+
+
 
 .goal-adder-modal-cancel {
-    margin-left: 50%;
+    position: absolute;
+    top: 0;
+    right: 0;
     border: none;
     background-color: rgb(226, 226, 226);
-    color: white;
+    color: black;
     cursor: pointer;
-
+    font-size: 20px;
 }
+
+
+.goal-adder-modal-goalName {
+  display: flex;
+  margin-left: 20px;
+  flex-direction: column;
+}
+
+.goal-adder-modal-goalName label {
+  color: rgb(112, 112, 112);
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+
+.goal-adder-modal-goalName input {
+  border-radius: 5px;
+  border: 0.5px solid #ccc;
+}
+
+
+
+.goal-adder-modal-goalDetail {
+  margin-top: 10px;
+  display: flex;
+  margin-left: 20px;
+  flex-direction: column;
+}
+
+.goal-adder-modal-goalDetail label {
+  color: rgb(112, 112, 112);
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.goal-adder-modal-goalName input:focus {
+  outline: none; /* 기본 포커스 아웃라인 제거 */
+  border-color: #6d488b; /* 포커스 시 테두리 색상 변경 */
+  box-shadow: 0 0 5px rgba(109, 72, 139, 0.5); /* 포커스 시 그림자 효과 */
+}
+
+
+
+.goal-adder-modal-goalDetail textarea {
+  color: black;
+  cursor: text;
+  width: 400px; /* 너비 증가 */
+  height: 100px; /* 높이 증가 */
+  font-size: 16px; /* 글자 크기 증가 */
+  padding: 3px 3px; /* 내부 여백 추가 */
+  border: 1px solid #ccc; /* 테두리 추가 */
+  border-radius: 4px; /* 모서리 둥글게 */
+  text-align: left;
+  vertical-align: top;
+  white-space: pre-wrap;
+  overflow-y: auto; /* 세로 스크롤 허용 */
+  resize: none; /* 수직 리사이즈만 허용 */
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  
+}
+
+.goal-adder-modal-goalDetail textarea:focus {
+  outline: none; /* 기본 포커스 아웃라인 제거 */
+  border-color: #6d488b; /* 포커스 시 테두리 색상 변경 */
+  box-shadow: 0 0 5px rgba(109, 72, 139, 0.5); /* 포커스 시 그림자 효과 */
+}
+
+
+.goal-adder-modal-add {
+  border: none;
+  color: rgb(72, 72, 250);
+  cursor: pointer;
+  border-radius: 5px;
+  background-color: rgb(210, 210, 255);
+  font-size: 17px;
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  padding: 0.2rem 1rem;
+  font-weight: bold;
+}
+
+
+.goal-adder-modal-add:hover {
+  background-color: rgb(180, 180, 255);
+  transition: 0.5s;
+}
+
 

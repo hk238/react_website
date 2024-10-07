@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
+import { Provider } from 'react-redux';
+import { store } from './components/redux/goalStore';
 import './App.css';
-import  AppHeader  from './components/appHeader';
-import TrackerNav from './components/trackerBox';
-import SummaryBox from './components/summaryBox';
+import AppHeader from './components/appHeader';
 import TrackerBox from './components/trackerBox';
-
+import SummaryBox from './components/summaryBox';
 
 function App() {
   const [scrolled, setScrolled] = useState(false);
@@ -40,23 +40,24 @@ function App() {
 
 
 
-  
+
   
   return (
-    <div className="App">
-      <AppHeader scrolled={scrolled} scrollDirection={scrollDirection} />
-      <div style={{ paddingTop : '8vh'}}>
-        <div className="container">
+    <Provider store={store}>
+      <div className="App">
+        <AppHeader scrolled={scrolled} scrollDirection={scrollDirection} />
+        <div style={{ paddingTop: '8vh' }}>
+          <div className="container">
             <div className="tracker-box">
               <TrackerBox />
             </div>
             <div className="summary-box">
               <SummaryBox />
             </div>
-
+          </div>
         </div>
       </div>
-    </div>
+    </Provider>
   );
 }
 

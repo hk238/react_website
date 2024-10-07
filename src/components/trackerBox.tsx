@@ -1,65 +1,46 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import '../components/tracker.css';
 import TrackerNav from './trackerNav';
 import GoalToday from './goalToday';
 import Reflection from './reflection';
+import { fetchGoals } from './redux/goalAction';
 import GoalAdder from './goalAdder';
+import {hardcodedGoals} from './redux/goalAction';
+import { RootState } from './redux/goalStore';
+import { Goal } from './type/goal';
 
-// 목표 타입 정의
-interface Goal {
-  id: number;
-  text: string;
-  details: string;
-  checked: boolean;
-}
 
-// API 호출을 시뮬레이션하는 함수
-const fetchGoals = async (): Promise<Goal[]> => {
-  // 실제 API 호출로 대체될 부분
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve([
-        { id: 1, text: "python", details: "Python 프로젝트의 주요 기능을 구현하고 테스트하기", checked: false },
-        { id: 2, text: "react", details: "React 프로젝트의 주요 기능을 구현하고 테스트하기", checked: false },
-        { id: 3, text: "javascript", details: "JavaScript 프로젝트의 주요 기능을 구현하고 테스트하기", checked: false },
-      ]);
-    }, 1000); // 1초 지연을 주어 비동기 작업 시뮬레이션
-  });
-};
+
+
 
 export default function TrackerBox() {
   const [activeComponent, setActiveComponent] = useState<'goalToday' | 'reflection' | null>(null);
-  const [goals, setGoals] = useState<Goal[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const dispatch = useDispatch();
+  const { goals, loading, error } = useSelector((state: RootState) => state.goal);
+
+
 
   useEffect(() => {
-    const loadGoals = async () => {
-      setIsLoading(true);
-      try {
-        const fetchedGoals = await fetchGoals();
-        setGoals(fetchedGoals);
-      } catch (error) {
-        console.error("Failed to fetch goals:", error);
-        // 여기에 에러 처리 로직 추가 (예: 사용자에게 알림)
-      } finally {
-        setIsLoading(false);
-      }
-    };
+    dispatch(hardcodedGoals() as any);
+  }, [dispatch]);
+  
 
-    loadGoals();
-  }, []);
+
 
   const handleCheckedChange = (id: number) => (newChecked: boolean) => {
-    setGoals(prevGoals =>
-      prevGoals.map(goal =>
-        goal.id === id ? { ...goal, checked: newChecked } : goal
-      )
-    );
+    // 체크 상태 변경 로직을 Redux 액션으로 구현해야 합니다.
+    // 예: dispatch(updateGoalChecked(id, newChecked));
   };
 
-  if (isLoading) {
+  if (loading) {
     return <div>Loading...</div>;
   }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
 
   return (
     <div>
@@ -73,11 +54,7 @@ export default function TrackerBox() {
           <>
             {goals.map((goal) => (
               <GoalToday
-                key={goal.id}
-                goal={goal.text}
-                detail={goal.details}
-                checked={goal.checked}
-                onCheckedChange={handleCheckedChange(goal.id)}
+                id={goal.id}
               />
             ))}
             <div className="goal-adder-container">
