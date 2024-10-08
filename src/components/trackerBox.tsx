@@ -9,8 +9,33 @@ import GoalAdder from './goalAdder';
 import {hardcodedGoals} from './redux/goalAction';
 import { RootState } from './redux/goalStore';
 import { Goal } from './type/goal';
+import {hardcodedReflections} from './hardcodedData/hardCodedData';
 
 
+const asyncReflections = async () => {
+  // Use hardcoded data for now
+  return hardcodedReflections;
+
+
+  // const response = await fetch('http://localhost:3000/api/userName');
+  // const data = await response.json();
+  // return data;
+};
+
+const handleReflections = async () => {
+  const data = await asyncReflections();
+  
+  // 날짜별로 데이터를 그룹화
+  const groupedByDate = data.reduce((acc: { [key: string]: any[] }, item: Goal) => {
+    if (!acc[item.date]) {
+      acc[item.date] = [];
+    }
+    acc[item.date].push(item);
+    return acc;
+  }, {});
+
+  return groupedByDate;
+};
 
 
 
@@ -18,20 +43,18 @@ export default function TrackerBox() {
   const [activeComponent, setActiveComponent] = useState<'goalToday' | 'reflection' | null>(null);
   const dispatch = useDispatch();
   const { goals, loading, error } = useSelector((state: RootState) => state.goal);
-
+  const [reflections, setReflections] = useState<{ [key: string]: any[] }>({});
 
 
   useEffect(() => {
     dispatch(hardcodedGoals() as any);
   }, [dispatch]);
-  
 
-
-
-  const handleCheckedChange = (id: number) => (newChecked: boolean) => {
-    // 체크 상태 변경 로직을 Redux 액션으로 구현해야 합니다.
-    // 예: dispatch(updateGoalChecked(id, newChecked));
-  };
+  useEffect(() => {
+    handleReflections().then((data) => {
+      setReflections(data);
+    });
+  }, []);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -40,7 +63,6 @@ export default function TrackerBox() {
   if (error) {
     return <div>Error: {error}</div>;
   }
-
 
   return (
     <div>
@@ -63,7 +85,16 @@ export default function TrackerBox() {
           </>
         )}
 
-        {activeComponent === 'reflection' && <Reflection />}
+        {activeComponent === 'reflection' && (
+          <>
+            {Object.keys(reflections).map((date) => (
+              <Reflection
+                date={date}
+                reflections={reflections[date]}
+              />
+            ))}
+          </>
+        )}
       </div>
     </div>
   );
