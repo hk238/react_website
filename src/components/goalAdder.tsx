@@ -16,43 +16,45 @@ export default function GoalAdder( ) {
     const [goalDetails, setGoalDetails] = useState('');
 
     async function postGoals(goal: Omit<Goal, 'id'>): Promise<Goal> {
-        // const response = await fetch('http://localhost:3000/goals', {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //     },
-        //     body: JSON.stringify(goal),
-        // });
-        // if (!response.ok) {
-        //     throw new Error('Failed to post goal');
-        // }
-        // return response.json();
+        const response = await fetch('http://localhost:3001/api/goals', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(goal),
+        });
+        if (!response.ok) {
+            throw new Error('Failed to post goal');
+        }
+        return response.json();
 
 
          // 서버 통신을 시뮬레이션하기 위해 setTimeout 사용
-         return new Promise((resolve) => {
-            setTimeout(() => {
-                const newGoal: Goal = {
-                    ...goal,
-                    id: Math.floor(Math.random() * 1000000) // 임의의 ID 생성
-                };
-                resolve(newGoal);
-            }, 500); // 500ms 지연을 주어 비동기 작업을 시뮬레이션
-        });
+        //  return new Promise((resolve) => {
+        //     setTimeout(() => {
+        //         const newGoal: Goal = {
+        //             ...goal,
+        //             id: Math.floor(Math.random() * 1000000) // 임의의 ID 생성
+        //         };
+        //         resolve(newGoal);
+        //     }, 500); // 500ms 지연을 주어 비동기 작업을 시뮬레이션
+        // });
     }
 
 
     
     const handleAddGoal = async () => {
         const newGoal: Omit<Goal, 'id'> = {
-            title: goalText, // 이 값들은 실제 입력된 값으로 변경해야 합니다
+            title: goalText, 
             description: goalDetails,
             checked: false,
-            date: new Date().toISOString().split('T')[0],
+            date: new Date().toISOString(),
         };
 
         try {
             const createdGoal = await postGoals(newGoal);
+            createdGoal.date = createdGoal.date.split('T')[0];
+
             dispatch(addGoal(createdGoal) as any);
             setShowModal(false);
             setGoalText('');

@@ -25,7 +25,7 @@ interface FetchGoalsFailureAction {
 
 interface UpdateGoalCheckedAction {
   type: 'UPDATE_GOAL_CHECKED';
-  payload: { id: number; checked: boolean };
+  payload: Goal[];
 }
 
 export type GoalActionTypes = 
@@ -49,12 +49,18 @@ export const fetchGoalsFailure = (error: string): FetchGoalsFailureAction => ({
   payload: error
 });
 
+export const fetchGoalCheckedUpdate = (goals: Goal[]): UpdateGoalCheckedAction => ({
+  type: 'UPDATE_GOAL_CHECKED',
+  payload: goals
+});
+
+
 // 비동기 액션 생성자
 export const fetchGoals = () => {
   return async (dispatch: Dispatch<GoalActionTypes>) => {
     dispatch(fetchGoalsRequest());
     try {
-      const response = await fetch('/api/goals');
+      const response = await fetch('http://localhost:3001/api/goals');
       const data = await response.json();
       dispatch(fetchGoalsSuccess(data));
     } catch (error) {
@@ -82,9 +88,39 @@ export const addGoal = (goal: Goal) => {
 
 
 export const updateGoalChecked = (id: number, checked: boolean) => {
-  return {
-    type: 'UPDATE_GOAL_CHECKED',
-    payload: { id, checked }
+  return async (dispatch: Dispatch<GoalActionTypes>, getState: () => RootState) => {
+    try {
+      const { goals } = getState().goal;
+      const goalToUpdate = goals.find(goal => goal.id === id);
+      
+      if (!goalToUpdate) {
+        throw new Error('Goal not found');
+      }
+
+      const updatedGoal = { ...goalToUpdate, checked };
+
+      const response = await fetch(`http://localhost:3001/api/goals/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedGoal),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to update goal');
+      }
+
+      const updatedGoalFromServer = await response.json();
+
+      const updatedGoals = goals.map(goal => 
+        goal.id === id ? updatedGoalFromServer : goal
+      );
+
+      dispatch(fetchGoalCheckedUpdate(updatedGoals));
+    } catch (error) {
+      console.error('Error updating goal:', error);
+      dispatch(fetchGoalsFailure((error as Error).message));
+    }
   };
 };
-

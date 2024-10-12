@@ -1,6 +1,6 @@
 import { Goal } from "./type/goal";
 
-export default function GoalBox({ goal, handleCheckedChange }: { goal: Goal, handleCheckedChange: (checked: boolean) => void | null }) {
+export default function GoalBox({ goal, handleCheckedChange }: { goal: Goal, handleCheckedChange: (checked: boolean) => void }) {
 
     return (
 <div className='goal-today-box'>

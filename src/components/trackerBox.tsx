@@ -13,13 +13,13 @@ import {hardcodedReflections} from './hardcodedData/hardCodedData';
 
 
 const asyncReflections = async () => {
-  // Use hardcoded data for now
-  return hardcodedReflections;
+  // Use hardcoded data
+  // return hardcodedReflections;
 
 
-  // const response = await fetch('http://localhost:3000/api/userName');
-  // const data = await response.json();
-  // return data;
+  const response = await fetch('http://localhost:3001/api/goals');
+  const data = await response.json();
+  return data;
 };
 
 const handleReflections = async () => {
@@ -47,7 +47,8 @@ export default function TrackerBox() {
 
 
   useEffect(() => {
-    dispatch(hardcodedGoals() as any);
+    // dispatch(hardcodedGoals() as any);
+    dispatch(fetchGoals() as any);
   }, [dispatch]);
 
   useEffect(() => {

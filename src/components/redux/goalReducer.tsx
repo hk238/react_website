@@ -23,11 +23,7 @@ const goalReducer = (state = initialState, action: GoalActionTypes) => {
     case 'UPDATE_GOAL_CHECKED':
       return {
         ...state,
-        goals: state.goals.map(goal => 
-          goal.id === action.payload.id 
-            ? { ...goal, checked: action.payload.checked } 
-            : goal
-        )
+        goals: action.payload
       };
     case FETCH_GOALS_REQUEST:
       return {
