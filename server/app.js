@@ -13,7 +13,10 @@ app.use(cors({ origin: 'http://localhost:3000' }));
 // app.js에서 변경
 app.get('/api/goals', async (req, res) => {
     try {
-        const result = await db.query("SELECT id, title, description, checked, TO_CHAR(date, 'YYYY-MM-DD') AS date FROM goals");
+        const result = await db.query(`
+            SELECT id, title, description, checked, TO_CHAR(date, 'YYYY-MM-DD') AS date 
+            FROM goals 
+            ORDER BY date DESC`);
         res.json(result.rows);
     } catch (error) {
         console.error(error);
@@ -97,6 +100,7 @@ app.get('/', (req, res) => {
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
+
 
 
 

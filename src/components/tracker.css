@@ -333,3 +333,29 @@
 }
 
 
+
+.reflection-title {
+  cursor: pointer;
+  margin-left: 20px;
+  font-weight: bold;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+
+.reflection-content {
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  transition: max-height 0.5s ease-out;
+  max-height: 0;
+}
+
+
+.reflection-content.show {
+  max-height: 1000px; /* 최대 높이를 충분히 크게 설정 */
+  overflow: visible;
+  transition: max-height 0.5s ease-in;
+}
+
+
+
