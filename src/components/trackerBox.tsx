@@ -6,7 +6,6 @@ import GoalToday from './goalToday';
 import Reflection from './reflection';
 import { fetchGoals } from './redux/goalAction';
 import GoalAdder from './goalAdder';
-import {hardcodedGoals} from './redux/goalAction';
 import { RootState } from './redux/goalStore';
 import { Goal } from './type/goal';
 import {hardcodedReflections} from './hardcodedData/hardCodedData';
@@ -17,7 +16,7 @@ const asyncReflections = async () => {
   // return hardcodedReflections;
 
 
-  const response = await fetch('http://localhost:3001/api/goals');
+  const response = await fetch('http://localhost:3001/api/goals/desc');
   const data = await response.json();
   return data;
 };

@@ -25,7 +25,7 @@ export default function GoalToday({ id }: { id: number }) {
 
   return (
 
-    <GoalBox goal={goal} handleCheckedChange={handleCheckedChange}/>
+    <GoalBox goal={goal} handleCheckedChange={handleCheckedChange} submitGoal={true}/>
 
 
   );

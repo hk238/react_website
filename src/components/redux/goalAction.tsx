@@ -60,7 +60,12 @@ export const fetchGoals = () => {
   return async (dispatch: Dispatch<GoalActionTypes>) => {
     dispatch(fetchGoalsRequest());
     try {
-      const response = await fetch('http://localhost:3001/api/goals');
+      const daysAgo = 10;
+      const date = new Date();
+      date.setDate(date.getDate() - daysAgo);
+      const formattedDate = date.toISOString().split('T')[0];
+
+      const response = await fetch(`http://localhost:3001/api/goals/after/${formattedDate}`);
       const data = await response.json();
       dispatch(fetchGoalsSuccess(data));
     } catch (error) {

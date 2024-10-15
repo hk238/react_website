@@ -11,7 +11,7 @@ app.use(cors({ origin: 'http://localhost:3000' }));
 
 // 간단한 GET 라우트
 // app.js에서 변경
-app.get('/api/goals', async (req, res) => {
+app.get('/api/goals/desc', async (req, res) => {
     try {
         const result = await db.query(`
             SELECT id, title, description, checked, TO_CHAR(date, 'YYYY-MM-DD') AS date 
@@ -25,6 +25,18 @@ app.get('/api/goals', async (req, res) => {
 });
 
 
+app.get('/api/goals/asc', async (req, res) => {
+    try {
+        const result = await db.query(`
+            SELECT id, title, description, checked, TO_CHAR(date, 'YYYY-MM-DD') AS date 
+            FROM goals 
+            ORDER BY date ASC`);
+        res.json(result.rows);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Server Error');
+    }
+});
 
 
 // 날짜에 따른 GET 라우트
@@ -41,6 +53,26 @@ app.get('/api/goals/:date', async (req, res) => {
         res.status(500).send('Server Error');
     }
 });
+
+
+app.get('/api/goals/after/:date', async (req, res) => {
+    const { date } = req.params; // URL 파라미터에서 userId 추출
+    try {
+        const result = await db.query(`
+            SELECT id, title, description, checked, TO_CHAR(date, 'YYYY-MM-DD') AS date
+            FROM goals 
+            WHERE date > $1 
+            ORDER BY date ASC
+            `,
+            [date] // date SQL 쿼리에 바인딩
+        );
+        res.json(result.rows);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Server Error');
+    }
+});
+
 
 
 
