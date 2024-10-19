@@ -25,6 +25,11 @@ const goalReducer = (state = initialState, action: GoalActionTypes) => {
         ...state,
         goals: action.payload
       };
+    case 'DELETE_GOAL':
+      return {
+        ...state,
+        goals: action.payload
+      };
     case FETCH_GOALS_REQUEST:
       return {
         ...state,

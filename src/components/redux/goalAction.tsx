@@ -28,11 +28,23 @@ interface UpdateGoalCheckedAction {
   payload: Goal[];
 }
 
+interface DeleteGoalAction {
+  type: 'DELETE_GOAL';
+  payload: Goal[];
+}
+
+interface UpdateGoalAction {
+  type: 'UPDATE_GOAL';
+  payload: Goal[];
+}
+
 export type GoalActionTypes = 
   | FetchGoalsRequestAction
   | FetchGoalsSuccessAction
   | FetchGoalsFailureAction
-  | UpdateGoalCheckedAction;
+  | UpdateGoalCheckedAction
+  | DeleteGoalAction
+  | UpdateGoalAction;
 
 // 액션 생성자
 export const fetchGoalsRequest = (): FetchGoalsRequestAction => ({
@@ -53,6 +65,19 @@ export const fetchGoalCheckedUpdate = (goals: Goal[]): UpdateGoalCheckedAction =
   type: 'UPDATE_GOAL_CHECKED',
   payload: goals
 });
+
+export const fetchGoalDelete = (goals: Goal[]): DeleteGoalAction => ({
+  type: 'DELETE_GOAL',
+  payload: goals
+});
+
+export const fetchGoalUpdate = (goals: Goal[]): UpdateGoalAction => ({
+  type: 'UPDATE_GOAL',
+  payload: goals
+});
+
+
+
 
 
 // 비동기 액션 생성자
@@ -127,5 +152,39 @@ export const updateGoalChecked = (id: number, checked: boolean) => {
       console.error('Error updating goal:', error);
       dispatch(fetchGoalsFailure((error as Error).message));
     }
+  };
+};
+
+
+export const deleteGoal = (id: number) => {
+  return async (dispatch: Dispatch<GoalActionTypes>, getState: () => RootState) => {
+    const { goals } = getState().goal;
+    const updatedGoals = goals.filter(goal => goal.id !== id);
+
+    const response = await fetch(`http://localhost:3001/api/goals/${id}`, {
+      method: 'DELETE',
+    });
+
+
+    dispatch(fetchGoalDelete(updatedGoals) as any);
+  };
+};
+
+
+export const updateGoal = (id: number, goal: Goal) => {
+  return async (dispatch: Dispatch<GoalActionTypes>, getState: () => RootState) => {
+    const { goals } = getState().goal;
+    const updatedGoals = goals.map(goal => goal.id === id ? goal : goal);
+   
+
+    const response = await fetch(`http://localhost:3001/api/goals/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(goal),
+    });
+
+    dispatch(fetchGoalUpdate(updatedGoals));
   };
 };
