@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/goal-note/static/css/main.a4239c57.css",
+    "main.js": "/goal-note/static/js/main.6b924728.js",
+    "static/js/453.55fb2c2b.chunk.js": "/goal-note/static/js/453.55fb2c2b.chunk.js",
+    "index.html": "/goal-note/index.html",
+    "main.a4239c57.css.map": "/goal-note/static/css/main.a4239c57.css.map",
+    "main.6b924728.js.map": "/goal-note/static/js/main.6b924728.js.map",
+    "453.55fb2c2b.chunk.js.map": "/goal-note/static/js/453.55fb2c2b.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.a4239c57.css",
+    "static/js/main.6b924728.js"
+  ]
+}
