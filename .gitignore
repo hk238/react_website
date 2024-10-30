@@ -5,8 +5,8 @@
 /.pnp
 .pnp.js
 /server/node_modules
-/server/package-lock.json
-/server/package.json
+# /server/package-lock.json
+# /server/package.json
 /server/.env
 # testing
 /coverage
