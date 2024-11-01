@@ -161,7 +161,7 @@ export const deleteGoal = (id: number) => {
     const { goals } = getState().goal;
     const updatedGoals = goals.filter(goal => goal.id !== id);
 
-    const response = await fetch(`http://localhost:3001/api/goals/${id}`, {
+    const response = await fetch(`https://react-website-krjr.onrender.com/api/goals/${id}`, {
       method: 'DELETE',
     });
 
@@ -177,7 +177,7 @@ export const updateGoal = (id: number, goal: Goal) => {
     const updatedGoals = goals.map(goal => goal.id === id ? goal : goal);
    
 
-    const response = await fetch(`http://localhost:3001/api/goals/${id}`, {
+    const response = await fetch(`https://react-website-krjr.onrender.com/api/goals/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

@@ -16,7 +16,7 @@ export default function GoalAdder( ) {
     const [goalDetails, setGoalDetails] = useState('');
 
     async function postGoals(goal: Omit<Goal, 'id'>): Promise<Goal> {
-        const response = await fetch('http://localhost:3001/api/goals', {
+        const response = await fetch('https://react-website-krjr.onrender.com/api/goals', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

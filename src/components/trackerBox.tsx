@@ -16,7 +16,7 @@ const asyncReflections = async () => {
   // return hardcodedReflections;
 
 
-  const response = await fetch('http://localhost:3001/api/goals/desc');
+  const response = await fetch('https://react-website-krjr.onrender.com/api/goals/desc');
   const data = await response.json();
   return data;
 };
