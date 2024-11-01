@@ -90,7 +90,7 @@ export const fetchGoals = () => {
       date.setDate(date.getDate() - daysAgo);
       const formattedDate = date.toISOString().split('T')[0];
 
-      const response = await fetch(`http://localhost:3001/api/goals/after/${formattedDate}`);
+      const response = await fetch(`https://react-website-krjr.onrender.com/api/goals/after/${formattedDate}`);
       const data = await response.json();
       dispatch(fetchGoalsSuccess(data));
     } catch (error) {
@@ -129,7 +129,7 @@ export const updateGoalChecked = (id: number, checked: boolean) => {
 
       const updatedGoal = { ...goalToUpdate, checked };
 
-      const response = await fetch(`http://localhost:3001/api/goals/${id}`, {
+      const response = await fetch(`https://react-website-krjr.onrender.com/api/goals/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
