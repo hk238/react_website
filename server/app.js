@@ -6,7 +6,10 @@ const PORT = process.env.PORT || 3001;
 const cors = require('cors');
 
 app.use(express.json());
-app.use(cors({ origin: 'http://localhost:3000' }));
+app.use(cors({ 
+  origin: ['http://localhost:3000', 'https://hk238.github.io'],
+  credentials: true
+}));
 
 
 // 간단한 GET 라우트
